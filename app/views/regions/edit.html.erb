@@ -1,0 +1,27 @@
+<% provide(:title, "Edit Region") %>
+<div class="container">
+  <h1>Edit Region</h1>
+
+  <% flash[:notice]&.each do |msg| %>
+    <div class="alert alert-danger">
+      <%= msg %>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_for :region, method: :patch do |f| %>
+
+        <%= f.label :name, 'Name' %>
+        <%= f.text_field :name, class: 'form-control' %>
+
+        <div>
+          <br>
+          <%= f.submit "Update", class: "col-md-3 btn btn-primary" %>
+          <div class="col-md-6"></div>
+          <%= link_to "Back", '/regions', class: "col-md-3 btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

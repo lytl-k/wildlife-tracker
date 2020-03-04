@@ -1,0 +1,42 @@
+<% provide(:title, "Animal Types") %>
+<div class="container">
+  <h1>Animal Types</h1>
+
+  <% flash[:notice]&.each do |msg| %>
+    <div class="alert alert-danger">
+      <%= msg %>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th></th>
+        </tr>
+        </thead>
+        <% @animal_types.each do |animal_type| %>
+          <tbody>
+            <tr>
+              <td><%= animal_type.name %></td>
+              <td><%= animal_type.description %></td>
+              <td>
+                <%= link_to "Edit", "/animal_types/#{animal_type.id}/edit", class: "btn btn-primary" %>
+                <%= link_to "Delete", "/animal_types/#{animal_type.id}", class: "btn btn-primary", method: :delete %>
+              </td>
+            </tr>
+          </tbody>
+        <% end %>
+      </table>
+      <div>
+        <br>
+        <%= link_to "New", '/animal_types/new', class: "col-md-3 btn btn-primary" %>
+        <div class="col-md-6"></div>
+        <%= link_to "Back", '/home', class: "col-md-3 btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="row">
+    <div class="row">
+      <h2 class="col-md-6">Manage your sightings</h2>
+      <div class="col-md-3"></div>
+      <%= link_to "Logout", '/logout', class: "col-md-offset-3 btn btn-primary", method: 'post' %>
+    </div>
+    <h3>Hi <%= @user.username %></h3>
+    <br>
+    <div>
+      <%= link_to "Animal Types", '/animal_types', class: "col-md-4 btn btn-primary" %>
+      <% unless @animal_types&.empty? %>
+        <%= link_to "Animals", '/animals', class: "col-md-4 btn btn-primary" %>
+      <% end %>
+      <%= link_to "Regions", '/regions', class: "col-md-4 btn btn-primary" %>
+    </div>
+  </div>
+
+  <br>
+
+  <div>
+    <%= form_for :home, action: :filtered, method: :get do |f| %>
+
+      <%= f.label :start_date, 'Start Date' %>
+      <%= f.text_field :start_date, data:{ provide:'datepicker' }, type: :date %>
+
+      <%= f.label :end_date, 'End Date' %>
+      <%= f.text_field :end_date, data:{ provide:'datepicker' }, type: :date %>
+      <br>
+
+      <%= f.label :region_id, 'Region' %>
+      <%= f.select :region_id, @regions.collect { |at| [at.name, at.id] }, {}, { class: 'form-control' } %>
+
+      <div>
+        <br>
+        <%= f.submit "Filter", class: "col-md-3 btn btn-primary" %>
+        <br>
+      </div>
+    <% end %>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+        <th>Animal</th>
+        <th>Region</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th></th>
+      </tr>
+      </thead>
+      <% @sightings.each do |sighting| %>
+        <tbody>
+          <tr>
+            <td><%= sighting.animal.name %></td>
+            <td><%= sighting.region.name %></td>
+            <td><%= sighting.latitude %></td>
+            <td><%= sighting.longitude %></td>
+            <td class="center-cell">
+              <%= link_to "Edit", "/sightings/#{sighting.id}/edit", class: "col-md-offset-5 btn btn-primary" %>
+            </td>
+          </tr>
+        </tbody>
+      <% end %>
+    </table>
+    <%= link_to "Add Sighting", '/sightings/new', class: "col-md-3 btn btn-primary" %>
+  </div>
+</div>
